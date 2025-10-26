@@ -1,0 +1,75 @@
+// ====================== lib/data/pediatric_kb.dart ======================
+import '../core/models.dart';
+
+const pediatricDiseases = <Disease>[
+  Disease(code: 'P01', name: 'Asma', description: 'Penyempitan saluran napas menyebabkan sesak & wheeze.', firstAid: 'Jauhkan pemicu, posisi duduk, inhaler bila ada.'),
+  Disease(code: 'P02', name: 'Bronkopneumonia', description: 'Infeksi paru: batuk produktif, demam, wheeze.', firstAid: 'Istirahat, cairan, kompres, rujuk bila sesak berat.'),
+  Disease(code: 'P03', name: 'Tifoid', description: 'Demam tifoid: demam lama, gangguan pencernaan.', firstAid: 'Cairan, makanan lunak, periksa bila demam tinggi.'),
+  Disease(code: 'P04', name: 'DBD (Dengue)', description: 'Demam dengue dengan ruam/perdarahan ringan.', firstAid: 'Cukup cairan, pantau bahaya, ke IGD bila memburuk.'),
+  Disease(code: 'P05', name: 'TBC', description: 'Batuk lama, keringat malam, BB turun.', firstAid: 'Masker, periksa OAT di puskesmas.'),
+  Disease(code: 'P06', name: 'Tonsilitis', description: 'Radang amandel: nyeri menelan, mulut berbau.', firstAid: 'Kumur hangat, hidrasi, analgesik; ke dokter bila berat.'),
+  Disease(code: 'P07', name: 'Leukemia', description: 'Pucat, perdarahan, memar, nyeri tulang.', firstAid: 'Rujuk segera untuk evaluasi hematologi.'),
+  Disease(code: 'P08', name: 'Malaria', description: 'Demam periodik, menggigil, keringat, pucat.', firstAid: 'Kompres, cairan, tes malaria bila endemis.'),
+  Disease(code: 'P09', name: 'Meningitis', description: 'Sakit kepala, muntah, kejang, penurunan kesadaran.', firstAid: 'Gawat darurat; ke IGD segera.'),
+];
+
+const pediatricSymptoms = <Symptom>[
+  Symptom('G01', 'Apakah anak batuk kering?'),
+  Symptom('G02', 'Apakah anak tampak gelisah/khawatir?'),
+  Symptom('G03', 'Apakah anak sulit berbicara?'),
+  Symptom('G04', 'Apakah tingkat kesadaran menurun?'),
+  Symptom('G05', 'Apakah anak sesak napas?'),
+  Symptom('G06', 'Apakah batuk produktif dan kuat?'),
+  Symptom('G07', 'Apakah anak merasa dada sesak?'),
+  Symptom('G08', 'Apakah napas berbunyi (wheezing)?'),
+  Symptom('G09', 'Apakah demam 2–4 hari (>38°C)?'),
+  Symptom('G10', 'Apakah demam 5–7 hari (>38°C)?'),
+  Symptom('G11', 'Apakah anak menggigil?'),
+  Symptom('G12', 'Apakah anak nyeri otot?'),
+  Symptom('G13', 'Apakah nyeri perut bagian atas?'),
+  Symptom('G14', 'Apakah berkeringat banyak?'),
+  Symptom('G15', 'Apakah sakit kepala?'),
+  Symptom('G16', 'Apakah muntah?'),
+  Symptom('G17', 'Apakah diare?'),
+  Symptom('G18', 'Apakah nafsu makan berkurang?'),
+  Symptom('G19', 'Apakah berat badan turun?'),
+  Symptom('G20', 'Apakah lidah tampak kotor di bagian tengah?'),
+  Symptom('G21', 'Apakah ujung lidah tampak merah?'),
+  Symptom('G22', 'Apakah nyeri tenggorokan?'),
+  Symptom('G23', 'Apakah anak tampak lesu?'),
+  Symptom('G24', 'Apakah bayi/anak menangis merintih?'),
+  Symptom('G25', 'Apakah batuk > 3 minggu dan kadang berdarah?'),
+  Symptom('G26', 'Apakah gusi sering berdarah?'),
+  Symptom('G27', 'Apakah terjadi kejang?'),
+  Symptom('G28', 'Apakah keringat malam tanpa aktivitas?'),
+  Symptom('G29', 'Apakah flu > 3 minggu?'),
+  Symptom('G30', 'Apakah mudah memar tanpa sebab?'),
+  Symptom('G31', 'Apakah ada pembesaran kelenjar getah bening?'),
+  Symptom('G32', 'Apakah nyeri tulang?'),
+  Symptom('G33', 'Apakah demam turun tiba-tiba?'),
+  Symptom('G34', 'Apakah nyeri menelan?'),
+  Symptom('G35', 'Apakah muncul ruam kemerahan pada kulit?'),
+  Symptom('G36', 'Apakah anak malas minum?'),
+  Symptom('G37', 'Apakah pucat?'),
+  Symptom('G38', 'Apakah mulut berbau?'),
+];
+
+const pediatricRules = <Rule>[
+  Rule(diseaseCode: 'P01', requiredSymptoms: {'G05', 'G08'}),
+  Rule(diseaseCode: 'P02', requiredSymptoms: {'G06', 'G08', 'G09'}),
+  Rule(diseaseCode: 'P03', requiredSymptoms: {'G10', 'G13', 'G17'}),
+  Rule(diseaseCode: 'P04', requiredSymptoms: {'G10', 'G12', 'G35'}),
+  Rule(diseaseCode: 'P05', requiredSymptoms: {'G25', 'G28', 'G19'}),
+  Rule(diseaseCode: 'P06', requiredSymptoms: {'G22', 'G34'}),
+  Rule(diseaseCode: 'P07', requiredSymptoms: {'G26', 'G30', 'G31'}),
+  Rule(diseaseCode: 'P08', requiredSymptoms: {'G11', 'G14', 'G37'}),
+  Rule(diseaseCode: 'P09', requiredSymptoms: {'G15', 'G16', 'G27'}),
+];
+
+const pediatricDomain = DomainConfig(
+  code: 'PED',
+  title: 'Diagnosis Penyakit Anak',
+  symptoms: pediatricSymptoms,
+  diseases: pediatricDiseases,
+  rules: pediatricRules,
+);
