@@ -13,7 +13,7 @@ class AboutScreen extends StatelessWidget {
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Text('Metode', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
           SizedBox(height: 4),
-          Text('Aplikasi menggunakan pendekatan Sistem Pakar (Forward Chaining). Pengguna memasukkan fakta (gejala), mesin mencocokkan aturan, lalu menyajikan dugaan penyakit secara berperingkat.'),
+          Text('Aplikasi menggunakan pendekatan Sistem Pakar. Pengguna memasukkan fakta (gejala), mesin mencocokkan aturan, lalu menyajikan dugaan penyakit secara berperingkat.'),
           SizedBox(height: 16),
           Text('Disclaimer', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
           SizedBox(height: 4),

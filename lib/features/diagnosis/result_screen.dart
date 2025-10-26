@@ -6,7 +6,7 @@ import '../../core/engine.dart';
 class ResultScreen extends StatelessWidget {
   final DomainConfig domain;
   final Set<String> facts;
-  final List<dynamic> answers; // _AnswerLog from diagnosis_screen.dart
+  final List<dynamic> answers; // _AnswerLog dari diagnosis_screen.dart
   final List<MapEntry<String, DiseaseMatch>> ranked;
   const ResultScreen({super.key, required this.domain, required this.facts, required this.answers, required this.ranked});
 
@@ -55,7 +55,7 @@ class _BestDiagnosisCard extends StatelessWidget {
     final dz = domain.diseases.firstWhere((d) => d.code == entry.key);
     return Container(
       padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(color: const Color(0xFFF0F9FF), borderRadius: BorderRadius.circular(16)),
+      decoration: BoxDecoration(color: Theme.of(context).colorScheme.primaryContainer, borderRadius: BorderRadius.circular(16)),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Text('Dugaan Utama – ${domain.code}', style: Theme.of(context).textTheme.titleLarge),
         const SizedBox(height: 8),

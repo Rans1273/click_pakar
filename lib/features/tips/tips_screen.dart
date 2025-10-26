@@ -7,10 +7,14 @@ class TipsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final tips = [
-      'Pantau tekanan darah & kadar gula pada kehamilan berisiko.',
-      'Cukupkan cairan saat demam/diare, gunakan termometer digital.',
-      'Kenali tanda bahaya: kejang, perdarahan, nyeri kepala berat, gangguan visus.',
-      'Kontrol ANC teratur dan lengkapi imunisasi anak.',
+      'Minum air putih 8 gelas/hari—lebih saat demam/diare.',
+      'Cuci tangan 20 detik sebelum menyentuh bayi/ibu hamil.',
+      'Kenali tanda bahaya: kejang, perdarahan, sesak berat, penurunan kesadaran.',
+      'Pada kehamilan: ukur tekanan darah rutin dan batasi garam jika dianjurkan.',
+      'Demam pada anak: kompres hangat, pakaian tipis, pantau suhu tiap 4 jam.',
+      'Batuk pilek: tidur berkepala agak tinggi, humidifier jika tersedia.',
+      'Makanan aman: hindari daging setengah matang pada ibu hamil (toksoplasma).',
+      'Jadwalkan imunisasi & kontrol ANC tepat waktu.',
     ];
     return Scaffold(
       appBar: AppBar(title: const Text('Tips Kesehatan')),
@@ -18,8 +22,8 @@ class TipsScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         itemCount: tips.length,
         separatorBuilder: (_, __) => const SizedBox(height: 8),
-        itemBuilder: (_, i) => const Card(
-          child: ListTile(leading: Icon(Icons.check_circle_outline), title: Text('')), // placeholder, diisi di bawah
+        itemBuilder: (_, i) => Card(
+          child: ListTile(leading: const Icon(Icons.check_circle_outline), title: Text(tips[i])),
         ),
       ),
     );

@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import '../../core/models.dart';
 import '../../core/engine.dart';
+import '../../core/history.dart';
+import '../../services/history_storage.dart';
 import 'result_screen.dart';
 
 class DiagnosisFormScreen extends StatefulWidget {
@@ -29,12 +31,28 @@ class _DiagnosisFormScreenState extends State<DiagnosisFormScreen> {
     }
   }
 
-  void _finish() {
+  Future<void> _finish() async {
     final engine = ForwardChainingEngine(widget.domain.rules);
     final results = engine.infer(_facts);
     final ranked = results.entries.toList()
       ..sort((a, b) => b.value.finalScore.compareTo(a.value.finalScore));
 
+    // Simpan ke history (jika ada hasil)
+    if (ranked.isNotEmpty) {
+      final best = ranked.first;
+      final entry = HistoryEntry(
+        domainCode: widget.domain.code,
+        domainTitle: widget.domain.title,
+        bestDiseaseCode: best.key,
+        bestDiseaseName: widget.domain.diseases.firstWhere((d) => d.code == best.key).name,
+        score: best.value.finalScore,
+        matchedSymptoms: best.value.matchedSymptoms.toList()..sort(),
+        time: DateTime.now(),
+      );
+      await HistoryStorage.add(entry);
+    }
+
+    if (!mounted) return;
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
@@ -52,6 +70,7 @@ class _DiagnosisFormScreenState extends State<DiagnosisFormScreen> {
   Widget build(BuildContext context) {
     final s = widget.domain.symptoms[_index];
     final progress = (_index + 1) / widget.domain.symptoms.length;
+    final cs = Theme.of(context).colorScheme;
 
     return Scaffold(
       appBar: AppBar(title: Text('Form Gejala (${widget.domain.code})')),
@@ -60,7 +79,10 @@ class _DiagnosisFormScreenState extends State<DiagnosisFormScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            LinearProgressIndicator(value: progress),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: LinearProgressIndicator(value: progress, minHeight: 8, color: cs.primary),
+            ),
             const SizedBox(height: 12),
             Text('Pertanyaan ${_index + 1} dari ${widget.domain.symptoms.length}',
                 style: Theme.of(context).textTheme.labelLarge?.copyWith(color: Colors.black54)),
@@ -99,20 +121,17 @@ class _QuestionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10, offset: const Offset(0, 4))],
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Icon(Icons.help_outline, size: 28),
-          const SizedBox(width: 12),
-          Expanded(child: Text(text, style: Theme.of(context).textTheme.titleMedium)),
-        ],
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Icon(Icons.help_outline, size: 28),
+            const SizedBox(width: 12),
+            Expanded(child: Text(text, style: Theme.of(context).textTheme.titleMedium)),
+          ],
+        ),
       ),
     );
   }
