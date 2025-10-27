@@ -2,7 +2,8 @@
 import 'package:flutter/material.dart';
 import 'core/theme.dart';
 import 'core/theme_controller.dart';
-import 'features/home/home_screen.dart';
+// Remove this unused import
+// import 'features/home/home_screen.dart';
 import 'features/getstarted/get_started_screen.dart';
 
 class PediatricPregnancyExpertApp extends StatefulWidget {
@@ -26,7 +27,7 @@ class _PediatricPregnancyExpertAppState extends State<PediatricPregnancyExpertAp
           theme: AppThemes.light,
           darkTheme: AppThemes.dark,
           themeMode: _theme.mode,
-          home: const GetStartedScreen(),
+          home: const GetStartedScreen(), // Starts with GetStartedScreen
         );
       },
     );

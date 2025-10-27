@@ -21,7 +21,12 @@ class _DiagnosisFormScreenState extends State<DiagnosisFormScreen> {
 
   void _answer(bool yes) {
     final current = widget.domain.symptoms[_index];
-    if (yes) _facts.add(current.code); else _facts.remove(current.code);
+    // Add curly braces here
+    if (yes) {
+      _facts.add(current.code);
+    } else {
+      _facts.remove(current.code);
+    }
     _answers.add(_AnswerLog(code: current.code, text: current.question, yes: yes));
 
     if (_index < widget.domain.symptoms.length - 1) {

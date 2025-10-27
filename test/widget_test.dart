@@ -1,30 +1,26 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
-import 'package:flutter/material.dart';
+// test/widget_test.dart
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:click_pakar/main.dart';
+// Import the correct app widget
+import 'package:click_pakar/app.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+  // Ensure the binding is initialized for platform channels/assets
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  // Updated test description to reflect what it actually tests
+  testWidgets('GetStartedScreen shows initial text', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+    await tester.pumpWidget(const PediatricPregnancyExpertApp());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    // Wait for async operations (like video initialization) and animations to settle
+    await tester.pumpAndSettle();
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    // Verify that the main text on the GetStartedScreen is visible
+    expect(find.text('Sistem Pakar Medis'), findsOneWidget);
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    // Add more checks for other elements on the GetStartedScreen
+    expect(find.text('Diagnosa awal penyakit pada Anak & Kehamilan'), findsOneWidget);
+    expect(find.text('Get Started'), findsOneWidget);
   });
 }
